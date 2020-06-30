@@ -1,0 +1,14 @@
+13
+1 Zurli Bravu 31 100
+2 Durli Tikitak 7 350
+3 Murli Mama 1 200
+4 Friky Shady 666 666
+5 Valoare Valorii 1 1
+6 Puterii Forta 1 100
+7 Prostilor Idiotilor 7 150
+8 Tembelilor Terminatilor 9 120
+9 Desteptilor FaraTurci 11 80
+10 Terminatilor Tocilari 10 70
+11 Durli Flocilor 5 90
+12 Durli Oo 2 80
+13 Durli Padure 5 70

@@ -1,0 +1,3 @@
+﻿  Source1.cpp
+C:\Users\Tuca\source\repos\Coada\Coada\Source1.cpp(95,13): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  Coada.vcxproj -> C:\Users\Tuca\source\repos\Coada\Debug\Coada.exe

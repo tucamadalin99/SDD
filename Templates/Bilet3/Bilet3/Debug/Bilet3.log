@@ -1,0 +1,7 @@
+﻿  Source.cpp
+c:\users\tuca\source\repos\bilet3\bilet3\source.cpp(251): warning C4326: return type of 'main' should be 'int' instead of 'void'
+c:\users\tuca\source\repos\bilet3\bilet3\source.cpp(260): warning C4474: 'printf' : too many arguments passed for format string
+  c:\users\tuca\source\repos\bilet3\bilet3\source.cpp(260): note: placeholders and their parameters expect 6 variadic arguments, but 7 were provided
+c:\users\tuca\source\repos\bilet3\bilet3\source.cpp(254): warning C4101: 'nr': unreferenced local variable
+c:\users\tuca\source\repos\bilet3\bilet3\source.cpp(112): warning C4715: 'cautare': not all control paths return a value
+  Bilet3.vcxproj -> C:\Users\Tuca\source\repos\Bilet3\Debug\Bilet3.exe

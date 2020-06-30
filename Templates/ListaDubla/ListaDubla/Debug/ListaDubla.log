@@ -1,0 +1,8 @@
+﻿  Source.cpp
+C:\Users\Tuca\source\repos\ListaDubla\ListaDubla\Source.cpp(37,9): warning C4476: 'printf' : unknown type field character ' ' in format specifier
+C:\Users\Tuca\source\repos\ListaDubla\ListaDubla\Source.cpp(37,29): warning C4474: 'printf' : too many arguments passed for format string
+C:\Users\Tuca\source\repos\ListaDubla\ListaDubla\Source.cpp(37,29): message : placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+C:\Users\Tuca\source\repos\ListaDubla\ListaDubla\Source.cpp(123,39): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Tuca\source\repos\ListaDubla\ListaDubla\Source.cpp(124,40): warning C4305: 'argument': truncation from 'double' to 'float'
+C:\Users\Tuca\source\repos\ListaDubla\ListaDubla\Source.cpp(125,42): warning C4305: 'argument': truncation from 'double' to 'float'
+  ListaDubla.vcxproj -> C:\Users\Tuca\source\repos\ListaDubla\Debug\ListaDubla.exe

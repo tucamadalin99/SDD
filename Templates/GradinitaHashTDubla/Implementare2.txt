@@ -1,0 +1,357 @@
+190,Gradinita Impreuna,Bucuresti,20,400.3,
+500,Gradinita Bucuria,Pitesti,35,200.55,
+200,Gradinita viitorului,23,60.3,
+67,Gradinita orasului,Bran,50,300.5,
+203,Gradinita copiilor,Prahova,48,100.34,
+304,Gradinita noastra,Suceava,10,50.2,
+108,Gradinita ta,Bucuresti,15,80.4,
+198,Gradinita Ana,Bucuresti,28,66.3,
+203,Gradinita Ioana,Bucuresti,25,62.9,
+307,Gradinita Mihaela,50,200.88,
+50,Grdinita Fericirii,39,112.2,
+100,Gradinita Anaoi,Bucuresti,24,400.3,
+107,Gardinita Naaoi,Pitesti,29,200.3,
+
+#include<iostream>
+#include<stdio.h>
+struct Gradinita {
+	int cod;
+	char* nume;
+	char* locatie;
+	int nr_elevi;
+	float suprafata;
+};
+struct Nod {
+	Gradinita info;
+	Nod* next;
+};
+
+struct hashT {
+	Nod** vect;
+	int size;
+};
+
+struct NodLS {
+	Gradinita info;
+	NodLS* next;
+	NodLS* prev;
+};
+
+
+int functieHash(hashT tabela, char* cheie) {
+	int pozitie = 0;
+	for (int i = 0; i < strlen(cheie); i++) {
+		pozitie = pozitie + cheie[i];
+	}
+	pozitie = pozitie % tabela.size;
+	return pozitie;
+}
+
+void inserareTabela(hashT tabela, Gradinita g) {
+
+	if (tabela.vect != NULL) {
+		int pozitie = functieHash(tabela, g.nume);
+		Nod* nou = (Nod*)malloc(sizeof(Nod));
+		nou->info.cod = g.cod;
+		nou->info.nume = (char*)malloc(sizeof(char)*(strlen(g.nume) + 1));
+		strcpy(nou->info.nume, g.nume);
+		nou->info.locatie = (char*)malloc(sizeof(char)*(strlen(g.locatie) + 1));
+		strcpy(nou->info.locatie, g.locatie);
+		nou->info.nr_elevi = g.nr_elevi;
+		nou->info.suprafata = g.suprafata;
+		nou->next = NULL;
+		if (tabela.vect[pozitie] == NULL) {
+			tabela.vect[pozitie] = nou;
+		}
+		else {
+			Nod* cursor = tabela.vect[pozitie];
+			while (cursor->next != NULL) {
+				cursor = cursor->next;
+			}
+			cursor->next = nou;
+		}
+	}
+}
+
+void afisareGradinita(Gradinita g) {
+	printf("\nCod:%d, Nume:%s, Locatie:%s, Numar elevi=%d, Suprafata=%5.2f", g.cod, g.nume, g.locatie, g.nr_elevi, g.suprafata);
+}
+
+void afisareTabela(hashT tabela) {
+	if (tabela.vect != NULL) {
+		printf("\Afisare tabela:\n");
+		for (int i = 0; i < tabela.size; i++) {
+			if (tabela.vect[i] != NULL) {
+				printf("\n\nLista %i:", i);
+				Nod* cursor = tabela.vect[i];
+				while (cursor != NULL) {
+					afisareGradinita(cursor->info);
+					cursor = cursor->next;
+				}
+			}
+		}
+		printf("\n\n");
+
+	}
+}
+
+void modificareNumeGradinita(hashT tabela, char* nume, char* numeNou) {
+	if (tabela.vect != NULL) {
+		int pozitie = functieHash(tabela, nume);
+		Gradinita g;
+		if (tabela.vect[pozitie] != NULL) {
+			Nod* temp = tabela.vect[pozitie];
+			if (strcmp(temp->info.nume, nume) == 0) {
+				g.cod = temp->info.cod;
+				g.nume = (char*)malloc(sizeof(char)*(strlen(numeNou) + 1));
+				strcpy(g.nume, numeNou);
+				g.locatie = (char*)malloc(sizeof(char)*(strlen(temp->info.locatie) + 1));
+				strcpy(g.locatie, temp->info.locatie);
+				g.nr_elevi = temp->info.nr_elevi;
+				g.suprafata = temp->info.suprafata;
+				if (temp->next == NULL) {
+					free(temp->info.nume);
+					free(temp->info.locatie);
+					free(temp);
+					tabela.vect[pozitie] = NULL;
+				}
+				else {
+					Nod* elim = temp;
+					temp = temp->next;
+					free(elim->info.nume);
+					free(elim->info.locatie);
+					free(elim);
+					tabela.vect[pozitie] = temp;
+				}
+				inserareTabela(tabela, g);
+			}
+			else {
+				int sw = 0;
+				while (temp->next != NULL && sw == 0) {
+					if (strcmp(temp->next->info.nume, nume) == 0) {
+						Nod* elim = temp->next;
+						g.cod = elim->info.cod;
+						g.nume = (char*)malloc(sizeof(char)*(strlen(numeNou) + 1));
+						strcpy(g.nume, numeNou);
+						g.locatie = (char*)malloc(sizeof(char)*(strlen(elim->info.locatie) + 1));
+						strcpy(g.locatie, elim->info.locatie);
+						g.nr_elevi = elim->info.nr_elevi;
+						g.suprafata = elim->info.suprafata;
+						temp->next = elim->next;
+						free(elim->info.nume);
+						free(elim->info.locatie);
+						free(elim);
+						inserareTabela(tabela, g);
+
+						sw = 1;
+					}
+					else {
+						temp = temp->next;
+					}
+
+				}
+				if (strcmp(temp->info.nume, nume) == 0) {
+					g.cod = temp->info.cod;
+					g.nume = (char*)malloc(sizeof(char)*(strlen(numeNou) + 1));
+					strcpy(g.nume, numeNou);
+					g.locatie = (char*)malloc(sizeof(char)*(strlen(temp->info.locatie) + 1));
+					strcpy(g.locatie, temp->info.locatie);
+					g.nr_elevi = temp->info.nr_elevi;
+					g.suprafata = temp->info.suprafata;
+					free(temp->info.nume);
+					free(temp->info.locatie);
+					free(temp);
+					inserareTabela(tabela, g);
+				}
+			}
+		}
+	}
+}
+
+void listDubla(hashT tabela, NodLS** cap, char* locatie) {
+	if (tabela.vect != NULL) {
+		for (int i = 0; i < tabela.size; i++) {
+			if (tabela.vect[i] != NULL) {
+				Nod* temp = tabela.vect[i];
+				while (temp != NULL) {
+
+					if (strcmp(temp->info.locatie, locatie) == 0) {
+						NodLS* nou = (NodLS*)malloc(sizeof(NodLS));
+						nou->info.cod = temp->info.cod;
+						nou->info.nr_elevi = temp->info.nr_elevi;
+						nou->info.nume = (char*)malloc(sizeof(char)*(strlen(temp->info.nume) + 1));
+						strcpy(nou->info.nume, temp->info.nume);
+						nou->info.locatie = (char*)malloc(sizeof(char)*(strlen(temp->info.locatie) + 1));
+						strcpy(nou->info.locatie, temp->info.locatie);
+						nou->info.suprafata = temp->info.suprafata;
+						nou->next = NULL;
+						if (*cap == NULL) {
+							nou->prev = NULL;
+							*cap = nou;
+						}
+						else {
+							NodLS* cursor = *cap;
+							while (cursor->next != NULL) {
+								cursor = cursor->next;
+							}
+							cursor->next = nou;
+							nou->prev = cursor;
+						}
+					}
+					temp = temp->next;
+				}
+			}
+		}
+	}
+}
+
+void rupereLista(NodLS* cap, NodLS** cap1, NodLS** cap2, int cod) {
+	NodLS* cursor = cap;
+	int sw = 0;
+	while ((cursor != NULL)) {
+		NodLS* cursor2 = cursor->next;
+		NodLS* nou = (NodLS*)malloc(sizeof(NodLS));
+		nou->info.cod = cursor->info.cod;
+		nou->info.nr_elevi = cursor->info.nr_elevi;
+		nou->info.nume = (char*)malloc(sizeof(char)*(strlen(cursor->info.nume) + 1));
+		strcpy(nou->info.nume, cursor->info.nume);
+		nou->info.locatie = (char*)malloc(sizeof(char)*(strlen(cursor->info.locatie) + 1));
+		strcpy(nou->info.locatie, cursor->info.locatie);
+		nou->info.suprafata = cursor->info.suprafata;
+		nou->next = NULL;
+		if (cursor->info.cod == cod)
+		{
+			sw = 1;
+		}
+		if (sw == 0) {
+			if (*cap1 == NULL) {
+				nou->prev = NULL;
+				*cap1 = nou;
+			}
+			else {
+				NodLS* cursor3 = *cap1;
+				while (cursor3->next != NULL)
+				{
+					cursor3 = cursor3->next;
+				}
+				cursor3->next = nou;
+				nou->prev = cursor3;
+			}
+		}
+		else {
+			if (*cap2 == NULL) {
+				nou->prev = NULL;
+				*cap2 = nou;
+			}
+			else {
+				NodLS* cursor3 = *cap2;
+				while (cursor3->next != NULL)
+				{
+					cursor3 = cursor3->next;
+				}
+				cursor3->next = nou;
+				nou->prev = cursor3;
+			}
+
+		}
+
+		free(cursor->info.nume);
+		free(cursor->info.locatie);
+		free(cursor);
+		cursor = cursor2;
+	}
+}
+void afisareLista(NodLS* cap) {
+	NodLS* cursor = cap;
+	while (cursor != NULL) {
+		afisareGradinita(cursor->info);
+		cursor = cursor->next;
+	}
+}
+
+
+void dezalocareTabela(hashT tabela) {
+	if (tabela.vect != NULL) {
+		for (int i = 0; i < tabela.size; i++) {
+			if (tabela.vect[i] != NULL) {
+				Nod* cursor = tabela.vect[i];
+				while (cursor != NULL) {
+					Nod* cursor2 = cursor->next;
+					free(cursor->info.nume);
+					free(cursor->info.locatie);
+					free(cursor);
+					cursor = cursor2;
+				}
+			}
+		}
+		free(tabela.vect);
+		printf("\nDezalocare cu succes!");
+	}
+}
+
+void dezalocareLista(NodLS* cap) {
+	NodLS* cursor = cap;
+	while (cursor != NULL) {
+		NodLS* cursor2 = cursor->next;
+		free(cursor->info.nume);
+		free(cursor->info.locatie);
+		free(cursor);
+		cursor = cursor2;
+	}
+}
+
+
+void main()
+{
+	hashT tabela;
+	tabela.size = 101;
+	tabela.vect = (Nod**)malloc(sizeof(Nod*)*tabela.size);
+	for (int i = 0; i < tabela.size; i++) {
+		tabela.vect[i] = NULL;
+	}
+	FILE* f;
+	f = fopen("tabeladedispersie.txt", "r");
+	char* token, file_buffer[100], sep[] = ",";
+	Gradinita g;
+	while (fgets(file_buffer, sizeof(file_buffer), f)) {
+		token = strtok(file_buffer, sep);
+		g.cod = atoi(token);
+
+		token = strtok(NULL, sep);
+		g.nume = (char*)malloc(sizeof(char)*(strlen(token) + 1));
+		strcpy(g.nume, token);
+
+		token = strtok(NULL, sep);
+		g.locatie = (char*)malloc(sizeof(char)*(strlen(token) + 1));
+		strcpy(g.locatie, token);
+
+		token = strtok(NULL, sep);
+		g.nr_elevi = atoi(token);
+
+		token = strtok(NULL, sep);
+		g.suprafata = atoi(token);
+		inserareTabela(tabela, g);
+		free(g.nume);
+		free(g.locatie);
+	}
+	afisareTabela(tabela);
+	printf("\n------Modificare nume(EX:2)-------\n");
+	modificareNumeGradinita(tabela, (char*)"Gardinita Naaoi", (char*) "GRADINITA");
+	afisareTabela(tabela);
+
+	printf("\n------Lista dubla(EX:3)-------\n");
+	NodLS* cap = NULL;
+	listDubla(tabela, &cap, (char*)"Bucuresti");
+	afisareLista(cap);
+	printf("\n------Liste duble(EX:4)-------\n");
+	NodLS* cap1 = NULL;
+	NodLS* cap2 = NULL;
+	rupereLista(cap, &cap1, &cap2, 190);
+	printf("\nLista1:\n");
+	afisareLista(cap1);
+	printf("\nLista2:\n");
+	afisareLista(cap2);
+	dezalocareTabela(tabela);
+	dezalocareLista(cap1);
+	dezalocareLista(cap2);
+}

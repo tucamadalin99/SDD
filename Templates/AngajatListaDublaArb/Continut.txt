@@ -1,0 +1,6 @@
+Lista Dubla de struct info
+Structura ABC
+Sterge un nod din lista dupa un criteriu(Nu functioneaza full)
+Copiere din lista dubla in arbore dupa un criteriu
+Conversie arbore in vector
+

@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\users\tuca\source\repos\bilet1\bilet1\source.cpp(44): warning C4018: '<': signed/unsigned mismatch
+c:\users\tuca\source\repos\bilet1\bilet1\source.cpp(174): warning C4715: 'cautareLista': not all control paths return a value
+  Bilet1.vcxproj -> C:\Users\Tuca\source\repos\Bilet1\Debug\Bilet1.exe

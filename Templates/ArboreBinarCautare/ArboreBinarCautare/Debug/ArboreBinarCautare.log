@@ -1,0 +1,3 @@
+﻿  Source.cpp
+c:\users\tuca\source\repos\arborebinarcautare\arborebinarcautare\source.cpp(104): warning C4715: 'cautare': not all control paths return a value
+  ArboreBinarCautare.vcxproj -> C:\Users\Tuca\source\repos\ArboreBinarCautare\Debug\ArboreBinarCautare.exe

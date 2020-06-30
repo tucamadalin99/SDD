@@ -1,0 +1,11 @@
+10
+100 Curent Mai 250 8
+201 Apa Martie 345 2
+306 TV Decembrie 230 7
+302 Gaze Ian 320 8
+204 Internet Aprilie 304 3
+634 Telefon Martie 305 6
+200 ApaCalda Ian 392 2
+206 Abonament Aprilie 283 2
+404 Banca Mai 293 7
+506 Comanda Martie 283 6

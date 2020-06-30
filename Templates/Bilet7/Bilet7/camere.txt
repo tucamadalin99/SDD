@@ -1,0 +1,11 @@
+10
+10 245.43 Dubla 1 Daniel
+11 454.34 Single 1 Cornel
+12 435.54 Dubla 1 Maria
+20 324.43 Single 2 Costin
+21 435.42 Dubla 2 Dorel
+23 234.43 Single 2 Oana
+30 210.43 Single 3 Radu
+31 310.54 Duble 3 Ionel
+32 200 Single 3 Vadim
+40 300.43 Duble 4 Ionica

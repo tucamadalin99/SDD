@@ -1,0 +1,11 @@
+10
+1 Diverta 200
+2 Copertada 300
+3 Diare 250
+4 Lib 120
+5 Andrei 342
+6 Loleg 321
+7 Boleg 214
+8 LibA 210
+9 Books 205
+10 Pola 210
